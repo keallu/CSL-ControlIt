@@ -207,7 +207,9 @@ namespace ControlIt
             {
                 _ugcDetailsRequestsRestricedPanel = UIUtils.CreatePanel("ControlItContentDetailsRequestsRestricedPanel");
                 _ugcDetailsRequestsRestricedPanel.anchor = UIAnchorStyle.Left | UIAnchorStyle.Bottom;
-                _ugcDetailsRequestsRestricedPanel.absolutePosition = new Vector3(12f, UIView.GetAView().fixedHeight - 32f);
+                _ugcDetailsRequestsRestricedPanel.width = 500f;
+                _ugcDetailsRequestsRestricedPanel.height = 20f;
+                _ugcDetailsRequestsRestricedPanel.absolutePosition = new Vector3(12f, UIView.GetAView().GetScreenResolution().y - 32f);
 
                 _ugcDetailsRequestsRestricedLabel = UIUtils.CreateLabel(_ugcDetailsRequestsRestricedPanel, "ContentDetailsRequestsRestricedLabel", "Requests restricted in current session: ");
                 _ugcDetailsRequestsRestricedLabel.font = UIUtils.GetUIFont("OpenSans-Semibold");
