@@ -43,27 +43,27 @@ namespace ControlIt
             {
                 if (_menuContainer == null)
                 {
-                    _menuContainer = GameObject.Find("MenuContainer").GetComponent<UIPanel>();
+                    _menuContainer = GameObject.Find("MenuContainer")?.GetComponent<UIPanel>();
                 }
 
                 if (_menuContainer != null && _centerPart == null)
                 {
-                    _centerPart = _menuContainer.Find("CenterPart").GetComponent<UISlicedSprite>();
+                    _centerPart = _menuContainer.Find("CenterPart")?.GetComponent<UISlicedSprite>();
                 }
 
                 if (_menuContainer != null && _newsFeedPanel == null)
                 {
-                    _newsFeedPanel = _menuContainer.Find("NewsFeedPanel").GetComponent<UIPanel>();
+                    _newsFeedPanel = _menuContainer.Find("NewsFeedPanel")?.GetComponent<UIPanel>();
                 }
 
                 if (_menuContainer != null && _paradoxAccountPanel == null)
                 {
-                    _paradoxAccountPanel = _menuContainer.Find("ParadoxAccountPanel").GetComponent<UIPanel>();
+                    _paradoxAccountPanel = _menuContainer.Find("ParadoxAccountPanel")?.GetComponent<UIPanel>();
                 }
 
                 if (_menuContainer != null && _dlcPanelNew == null)
                 {
-                    _dlcPanelNew = _menuContainer.Find("DLCPanelNew").GetComponent<UIPanel>();
+                    _dlcPanelNew = _menuContainer.Find("DLCPanelNew")?.GetComponent<UIPanel>();
 
                     if (_dlcPanelNew != null && _dlcPanelNewScrollablePanel == null)
                     {
@@ -73,7 +73,7 @@ namespace ControlIt
 
                 if (_menuContainer != null && _workshopAdPanel == null)
                 {
-                    _workshopAdPanel = _menuContainer.Find("WorkshopAdPanel").GetComponent<UIPanel>();
+                    _workshopAdPanel = _menuContainer.Find("WorkshopAdPanel")?.GetComponent<UIPanel>();
 
                     if (_workshopAdPanel != null && _workshopAdPanelScrollablePanel == null)
                     {
@@ -88,7 +88,7 @@ namespace ControlIt
 
                 if (_menuContainer != null && _chirper == null)
                 {
-                    _chirper = _menuContainer.Find("Chirper").GetComponent<UISprite>();
+                    _chirper = _menuContainer.Find("Chirper")?.GetComponent<UISprite>();
                 }
 
                 CreateUI();
@@ -122,11 +122,12 @@ namespace ControlIt
                 {
                     _dlcPanelNewScrollablePanel.isVisible = true;
                 }
+
                 if (_workshopAdPanelScrollablePanel != null)
                 {
                     _workshopAdPanelScrollablePanel.isVisible = !PluginManager.noWorkshop;
-
                 }
+
                 if (_workshopAdPanelDisabledLabel != null)
                 {
                     _workshopAdPanelDisabledLabel.isVisible = PluginManager.noWorkshop;
@@ -247,13 +248,30 @@ namespace ControlIt
                 {
                     _workshopAdPanelDisabledLabel.isVisible = false;
                 }
-
-                _centerPart.fillAmount = ModConfig.Instance.HideMenuBackground ? 0f : 1f;
-                _newsFeedPanel.opacity = ModConfig.Instance.NewsPanelOpacity;
-                _paradoxAccountPanel.opacity = ModConfig.Instance.AccountPanelOpacity;
-                _dlcPanelNew.opacity = ModConfig.Instance.DLCPanelOpacity;
-                _workshopAdPanel.opacity = ModConfig.Instance.WorkshopPanelOpacity;
-                _chirper.isVisible = !ModConfig.Instance.HideChirper;
+                if (_centerPart != null)
+                {
+                    _centerPart.fillAmount = ModConfig.Instance.HideMenuBackground ? 0f : 1f;
+                }
+                if (_newsFeedPanel != null)
+                {
+                    _newsFeedPanel.opacity = ModConfig.Instance.NewsPanelOpacity;
+                }
+                if (_paradoxAccountPanel != null)
+                {
+                    _paradoxAccountPanel.opacity = ModConfig.Instance.AccountPanelOpacity;
+                }
+                if (_dlcPanelNew != null)
+                {
+                    _dlcPanelNew.opacity = ModConfig.Instance.DLCPanelOpacity;
+                }
+                if (_workshopAdPanel != null)
+                {
+                    _workshopAdPanel.opacity = ModConfig.Instance.WorkshopPanelOpacity;
+                }
+                if (_chirper != null)
+                {
+                    _chirper.isVisible = !ModConfig.Instance.HideChirper;
+                }
 
                 if (ModConfig.Instance.ShowStatistics)
                 {
@@ -278,7 +296,7 @@ namespace ControlIt
             }
             catch (Exception e)
             {
-                Debug.Log("[Watch It!] ModManager:UpdateStatistics -> Exception: " + e.Message);
+                Debug.Log("[Control It!] ModManager:UpdateStatistics -> Exception: " + e.Message);
             }
         }
     }
