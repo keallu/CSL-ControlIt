@@ -1,10 +1,12 @@
-﻿using HarmonyLib;
-using System;
-using UnityEngine;
-using System.Reflection;
+﻿using ColossalFramework.PlatformServices;
 using ColossalFramework.UI;
-using ColossalFramework.PlatformServices;
+using ControlIt.Helpers;
+using HarmonyLib;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using UnityEngine;
 
 namespace ControlIt
 {
@@ -122,7 +124,7 @@ namespace ControlIt
                 Debug.Log("[Control It!] WorkshopAdPanelAwakePatch:Prefix -> Exception: " + e.Message);
             }
         }
-    }    
+    }
 
     [HarmonyPatch(typeof(CategoryContentPanel), "RequestDetails")]
     public static class CategoryContentPanelRequestDetailsPatch
@@ -190,6 +192,77 @@ namespace ControlIt
             catch (Exception e)
             {
                 Debug.Log("[Control It!] PackageEntrySetNameLabelPatch:Prefix -> Exception: " + e.Message);
+            }
+        }
+    }
+
+    public struct TelemetryEntry
+    {
+        public string eventName;
+
+        public ICollection<KeyValuePair<string, string>> keyValuePairs;
+    }
+
+    [HarmonyPatch(typeof(PopsManager), "Send")]
+    public static class PopsManagerSendPatch
+    {
+        static bool Prefix(TelemetryEntry telemetryEntry)
+        {
+            try
+            {
+                if (ModConfig.Instance.LogTelemetryEntriesToFile)
+                {
+                    LogHelper.WriteTelemetryEntryToFile(telemetryEntry.eventName, telemetryEntry.keyValuePairs.ToList());
+                }
+
+                if (ModConfig.Instance.RestrictTelemetry)
+                {
+                    Statistics.Instance.TelemetryEntriesSendRestricted++;
+
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log("[Control It!] PopsManagerSendPatch:Prefix -> Exception: " + e.Message);
+
+                return true;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(PopsManager), "Buffer")]
+    public static class PopsManagerBufferPatch
+    {
+        static bool Prefix(TelemetryEntry telemetryEntry)
+        {
+            try
+            {
+                if (ModConfig.Instance.LogTelemetryEntriesToFile)
+                {
+                    LogHelper.WriteTelemetryEntryToFile(telemetryEntry.eventName, telemetryEntry.keyValuePairs.ToList());
+                }
+
+                if (ModConfig.Instance.RestrictTelemetry)
+                {
+                    Statistics.Instance.TelemetryEntriesSendRestricted++;
+
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log("[Control It!] PopsManagerBufferPatch:Prefix -> Exception: " + e.Message);
+
+                return true;
             }
         }
     }

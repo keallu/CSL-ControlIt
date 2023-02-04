@@ -21,9 +21,9 @@ namespace ControlIt
         private UILabel _workshopAdPanelDisabledLabel;
         private UISprite _chirper;
 
-        private UIPanel _ugcDetailsRequestsRestricedPanel;
-        private UILabel _ugcDetailsRequestsRestricedLabel;
-        private UILabel _ugcDetailsRequestsRestricedNumber;
+        private UIPanel _networkTrafficRestricedPanel;
+        private UILabel _networkTrafficRestricedLabel;
+        private UILabel _networkTrafficRestricedNumber;
 
         public void Awake()
         {
@@ -103,19 +103,19 @@ namespace ControlIt
         {
             try
             {
-                if (_ugcDetailsRequestsRestricedNumber != null)
+                if (_networkTrafficRestricedNumber != null)
                 {
-                    Destroy(_ugcDetailsRequestsRestricedNumber.gameObject);
+                    Destroy(_networkTrafficRestricedNumber.gameObject);
                 }
 
-                if (_ugcDetailsRequestsRestricedLabel != null)
+                if (_networkTrafficRestricedLabel != null)
                 {
-                    Destroy(_ugcDetailsRequestsRestricedLabel.gameObject);
+                    Destroy(_networkTrafficRestricedLabel.gameObject);
                 }
 
-                if (_ugcDetailsRequestsRestricedPanel != null)
+                if (_networkTrafficRestricedPanel != null)
                 {
-                    Destroy(_ugcDetailsRequestsRestricedPanel.gameObject);
+                    Destroy(_networkTrafficRestricedPanel.gameObject);
                 }
 
                 if (_dlcPanelNewScrollablePanel != null)
@@ -205,25 +205,25 @@ namespace ControlIt
         {
             try
             {
-                _ugcDetailsRequestsRestricedPanel = UIUtils.CreatePanel("ControlItContentDetailsRequestsRestricedPanel");
-                _ugcDetailsRequestsRestricedPanel.anchor = UIAnchorStyle.Left | UIAnchorStyle.Bottom;
-                _ugcDetailsRequestsRestricedPanel.width = 500f;
-                _ugcDetailsRequestsRestricedPanel.height = 20f;
-                _ugcDetailsRequestsRestricedPanel.absolutePosition = new Vector3(12f, UIView.GetAView().GetScreenResolution().y - 32f);
+                _networkTrafficRestricedPanel = UIUtils.CreatePanel("ControlItNetworkTrafficRestricedPanel");
+                _networkTrafficRestricedPanel.anchor = UIAnchorStyle.Left | UIAnchorStyle.Bottom;
+                _networkTrafficRestricedPanel.width = 500f;
+                _networkTrafficRestricedPanel.height = 20f;
+                _networkTrafficRestricedPanel.absolutePosition = new Vector3(12f, UIView.GetAView().GetScreenResolution().y - 32f);
 
-                _ugcDetailsRequestsRestricedLabel = UIUtils.CreateLabel(_ugcDetailsRequestsRestricedPanel, "ContentDetailsRequestsRestricedLabel", "Requests restricted in current session: ");
-                _ugcDetailsRequestsRestricedLabel.font = UIUtils.GetUIFont("OpenSans-Semibold");
-                _ugcDetailsRequestsRestricedLabel.autoSize = true;
-                _ugcDetailsRequestsRestricedLabel.height = 18f;
-                _ugcDetailsRequestsRestricedLabel.anchor = UIAnchorStyle.Right | UIAnchorStyle.Top;
-                _ugcDetailsRequestsRestricedLabel.relativePosition = new Vector3(0f, 0f);
+                _networkTrafficRestricedLabel = UIUtils.CreateLabel(_networkTrafficRestricedPanel, "NetworkTrafficRestricedLabel", "Restricted in current session: ");
+                _networkTrafficRestricedLabel.font = UIUtils.GetUIFont("OpenSans-Semibold");
+                _networkTrafficRestricedLabel.autoSize = true;
+                _networkTrafficRestricedLabel.height = 18f;
+                _networkTrafficRestricedLabel.anchor = UIAnchorStyle.Right | UIAnchorStyle.Top;
+                _networkTrafficRestricedLabel.relativePosition = new Vector3(0f, 0f);
 
-                _ugcDetailsRequestsRestricedNumber = UIUtils.CreateLabel(_ugcDetailsRequestsRestricedPanel, "ContentDetailsRequestsRestricedNumber", "0");
-                _ugcDetailsRequestsRestricedNumber.font = UIUtils.GetUIFont("OpenSans-Semibold");
-                _ugcDetailsRequestsRestricedNumber.autoSize = true;
-                _ugcDetailsRequestsRestricedNumber.height = 18f;
-                _ugcDetailsRequestsRestricedNumber.anchor = UIAnchorStyle.Right | UIAnchorStyle.Top;
-                _ugcDetailsRequestsRestricedNumber.relativePosition = new Vector3(_ugcDetailsRequestsRestricedLabel.width + 5f, 0f);
+                _networkTrafficRestricedNumber = UIUtils.CreateLabel(_networkTrafficRestricedPanel, "NetworkTrafficRestricedNumber", "0 (UGC Details), 0 (Telemetry)");
+                _networkTrafficRestricedNumber.font = UIUtils.GetUIFont("OpenSans-Semibold");
+                _networkTrafficRestricedNumber.autoSize = true;
+                _networkTrafficRestricedNumber.height = 18f;
+                _networkTrafficRestricedNumber.anchor = UIAnchorStyle.Right | UIAnchorStyle.Top;
+                _networkTrafficRestricedNumber.relativePosition = new Vector3(_networkTrafficRestricedLabel.width + 5f, 0f);
 
                 UpdateUI();
 
@@ -277,11 +277,11 @@ namespace ControlIt
 
                 if (ModConfig.Instance.ShowStatistics)
                 {
-                    _ugcDetailsRequestsRestricedPanel.isVisible = true;
+                    _networkTrafficRestricedPanel.isVisible = true;
                 }
                 else
                 {
-                    _ugcDetailsRequestsRestricedPanel.isVisible = false;
+                    _networkTrafficRestricedPanel.isVisible = false;
                 }
             }
             catch (Exception e)
@@ -294,7 +294,7 @@ namespace ControlIt
         {
             try
             {
-                _ugcDetailsRequestsRestricedNumber.text = "~" + Statistics.Instance.UserGeneratedContentDetailsRequestRestricted.ToString();
+                _networkTrafficRestricedNumber.text = string.Format("~{0} (UGC Details), ~{1} (Telemetry)", Statistics.Instance.UserGeneratedContentDetailsRequestRestricted.ToString(), Statistics.Instance.TelemetryEntriesSendRestricted.ToString());
             }
             catch (Exception e)
             {

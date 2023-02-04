@@ -81,6 +81,13 @@ namespace ControlIt
                 ModConfig.Instance.Save();
             });
 
+            selected = ModConfig.Instance.RestrictTelemetry;
+            group.AddCheckbox("Restrict Telemetry", selected, sel =>
+            {
+                ModConfig.Instance.RestrictTelemetry = sel;
+                ModConfig.Instance.Save();
+            });
+
             group = helper.AddGroup("Visual Appearance");
 
             selected = ModConfig.Instance.HideMenuBackground;
@@ -131,6 +138,13 @@ namespace ControlIt
             group.AddCheckbox("Update User Generated Content Details when browsing Content Manager", selected, sel =>
             {
                 ModConfig.Instance.UpdateUserGeneratedContentDetailsWhenBrowsing = sel;
+                ModConfig.Instance.Save();
+            });
+
+            selected = ModConfig.Instance.LogTelemetryEntriesToFile;
+            group.AddCheckbox("Log Telemetry Entries to File", selected, sel =>
+            {
+                ModConfig.Instance.LogTelemetryEntriesToFile = sel;
                 ModConfig.Instance.Save();
             });
         }

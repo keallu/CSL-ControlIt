@@ -3,6 +3,7 @@
     public class Statistics
     {
         public int UserGeneratedContentDetailsRequestRestricted { get; set; }
+        public int TelemetryEntriesSendRestricted { get; set; }
 
         private static Statistics instance;
 
