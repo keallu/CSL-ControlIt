@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using static ColossalFramework.Packaging.Package;
 
 namespace ControlIt
 {
@@ -138,9 +139,14 @@ namespace ControlIt
                     ___m_DetailsPending = new Dictionary<PublishedFileId, List<EntryData>>();
                     foreach (EntryData asset in ___m_Assets)
                     {
-                        PublishedFileId publishedFileId = asset.publishedFileId;
-                        if (publishedFileId != PublishedFileId.invalid)
+                        if (asset.lastDataRequest != 0f && asset.lastDataRequest + 30f > Time.time)
                         {
+                            continue;
+                        }
+                        PublishedFileId publishedFileId = asset.publishedFileId;
+                        if (publishedFileId != PublishedFileId.invalid && asset.needUpdateData)
+                        {
+                            asset.lastDataRequest = Time.time;
                             if (___m_DetailsPending.TryGetValue(publishedFileId, out var value))
                             {
                                 value.Add(asset);
@@ -185,7 +191,7 @@ namespace ControlIt
 
                         bool isWorkshopItem = (bool)typeof(PackageEntry).GetProperty("isWorkshopItem", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance, null);
 
-                        ___m_NameLabel.text = (string)typeof(PackageEntry).GetMethod("FormatPackageName", BindingFlags.NonPublic | BindingFlags.Static).Invoke(__instance, new object[] { entryName, authorName, isWorkshopItem });
+                        ___m_NameLabel.text = ___m_NameLabel.text + (string)typeof(PackageEntry).GetMethod("FormatPackageName", BindingFlags.NonPublic | BindingFlags.Static).Invoke(__instance, new object[] { entryName, authorName, isWorkshopItem });
                     }
                 }
             }

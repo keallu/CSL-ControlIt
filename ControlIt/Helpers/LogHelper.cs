@@ -41,8 +41,9 @@ namespace ControlIt.Helpers
                     stringBuilder.Append("\"");
                 }
                 stringBuilder.Append("}}");
+                stringBuilder.Append("\r\n\r\n");
 
-                File.AppendAllText("Telemetry\\" + fileName + ".txt", stringBuilder.ToString() + "\r\n\r\n");
+                File.AppendAllText($"Telemetry{Path.DirectorySeparatorChar}{fileName}.txt", stringBuilder.ToString());
             }
             catch (Exception e)
             {
