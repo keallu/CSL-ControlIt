@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using static ColossalFramework.Packaging.Package;
 
 namespace ControlIt
 {
@@ -72,8 +71,8 @@ namespace ControlIt
         }
     }
 
-    [HarmonyPatch(typeof(DLCPanel), "Refresh")]
-    public static class DLCPanelRefreshPatch
+    [HarmonyPatch(typeof(DLCPanel), "RefreshDLCOwnerships")]
+    public static class DLCPanelRefreshDLCOwnershipsPatch
     {
         static bool Prefix()
         {
@@ -83,15 +82,15 @@ namespace ControlIt
             }
             catch (Exception e)
             {
-                Debug.Log("[Control It!] DLCPanelRefreshPatch:Prefix -> Exception: " + e.Message);
+                Debug.Log("[Control It!] DLCPanelRefreshDLCOwnershipsPatch:Prefix -> Exception: " + e.Message);
             }
 
             return true;
         }
     }
 
-    [HarmonyPatch(typeof(DLCPanelNew), "RefreshList")]
-    public static class DLCPanelNewRefreshListPatch
+    [HarmonyPatch(typeof(DLCPanel), "RefreshList")]
+    public static class DLCPanelRefreshListPatch
     {
         static bool Prefix()
         {
@@ -101,7 +100,7 @@ namespace ControlIt
             }
             catch (Exception e)
             {
-                Debug.Log("[Control It!] DLCPanelNewRefreshListPatch:Prefix -> Exception: " + e.Message);
+                Debug.Log("[Control It!] DLCPanelRefreshListPatch:Prefix -> Exception: " + e.Message);
             }
 
             return true;

@@ -14,7 +14,7 @@ namespace ControlIt
         private UISlicedSprite _centerPart;
         private UIPanel _newsFeedPanel;
         private UIPanel _paradoxAccountPanel;
-        private UIPanel _dlcPanelNew;
+        private UIPanel _dlcPanel;
         private UIScrollablePanel _dlcPanelNewScrollablePanel;
         private UIPanel _workshopAdPanel;
         private UIScrollablePanel _workshopAdPanelScrollablePanel;
@@ -61,13 +61,13 @@ namespace ControlIt
                     _paradoxAccountPanel = _menuContainer.Find("ParadoxAccountPanel")?.GetComponent<UIPanel>();
                 }
 
-                if (_menuContainer != null && _dlcPanelNew == null)
+                if (_menuContainer != null && _dlcPanel == null)
                 {
-                    _dlcPanelNew = _menuContainer.Find("DLCPanelNew")?.GetComponent<UIPanel>();
+                    _dlcPanel = _menuContainer.Find("DLCPanel")?.GetComponent<UIPanel>();
 
-                    if (_dlcPanelNew != null && _dlcPanelNewScrollablePanel == null)
+                    if (_dlcPanel != null && _dlcPanelNewScrollablePanel == null)
                     {
-                        _dlcPanelNewScrollablePanel = _dlcPanelNew.Find("ScrollablePanel")?.GetComponent<UIScrollablePanel>();
+                        _dlcPanelNewScrollablePanel = _dlcPanel.Find("ScrollablePanel")?.GetComponent<UIScrollablePanel>();
                     }
                 }
 
@@ -148,9 +148,9 @@ namespace ControlIt
                     _paradoxAccountPanel.opacity = 1f;
                 }
 
-                if (_dlcPanelNew != null)
+                if (_dlcPanel != null)
                 {
-                    _dlcPanelNew.opacity = 1f;
+                    _dlcPanel.opacity = 1f;
                 }
 
                 if (_workshopAdPanel != null)
@@ -262,9 +262,9 @@ namespace ControlIt
                 {
                     _paradoxAccountPanel.opacity = ModConfig.Instance.AccountPanelOpacity;
                 }
-                if (_dlcPanelNew != null)
+                if (_dlcPanel != null)
                 {
-                    _dlcPanelNew.opacity = ModConfig.Instance.DLCPanelOpacity;
+                    _dlcPanel.opacity = ModConfig.Instance.DLCPanelOpacity;
                 }
                 if (_workshopAdPanel != null)
                 {
